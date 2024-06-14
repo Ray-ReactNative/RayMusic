@@ -26,7 +26,6 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
@@ -47,6 +46,22 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<array>
+		<string></string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AntDesign.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>Gilroy-Bold.ttf</string>
+		<string>Gilroy-Light.ttf</string>
+		<string>Gilroy-Medium.ttf</string>
+		<string>Gilroy-Regular.ttf</string>
+		<string>Gilroy-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>
