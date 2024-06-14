@@ -11,6 +11,7 @@ import {
   PlayPauseButton,
 } from './PlayerControls';
 import {Slider} from 'react-native-awesome-slider';
+import MovingText from './MovingText';
 const imgUrl =
   'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/701/325x325/nostalgia-1718323267-zWVQ91T49m.jpg';
 const FloatingPlayer = () => {
@@ -38,7 +39,12 @@ const FloatingPlayer = () => {
       <TouchableOpacity style={styles.container} activeOpacity={0.65}>
         <Image source={{uri: imgUrl}} style={styles.coverImage} />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}> Nostalgia </Text>
+          <MovingText
+            text={'Nostalgia'}
+            style={styles.title}
+            animationThreshold={15}
+          />
+          {/* <Text style={styles.title}> Nostalgia </Text> */}
           <Text style={styles.artist}> Johnning, Janji</Text>
         </View>
         <View style={styles.playerControlContainer}>
@@ -59,11 +65,14 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     paddingHorizontal: spacing.sm,
+    overflow: 'hidden',
   },
   title: {
     color: colors.textPrimary,
     fontSize: fontSize.lg,
     fontFamily: fontFamilies.medium,
+    marginLeft: spacing.sm,
+    marginRight: spacing.lg,
   },
   artist: {
     color: colors.textSecondary,
