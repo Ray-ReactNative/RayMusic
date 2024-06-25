@@ -23,10 +23,13 @@ import {
 } from '../components/PlayerControls';
 import TrackPlayer, {useActiveTrack} from 'react-native-track-player';
 import {useNavigation} from '@react-navigation/native';
+import useLikeSongs from '../store/likeStore';
 
 const PlayerScreen = () => {
+  const navigation = useNavigation();
+  const {likedSongs, addToLiked} = useLikeSongs();
+  console.log('liked', likedSongs);
   const activeTrack = useActiveTrack();
-  console.log('activeTrack:', activeTrack);
   const isLiked = false;
   const [isMute, setIsMute] = useState(false);
 
@@ -38,7 +41,6 @@ const PlayerScreen = () => {
     setIsMute(volume === 0 ? true : false);
   };
 
-  const navigation = useNavigation();
   const handleGoBack = () => {
     navigation.goBack();
   };
@@ -80,7 +82,7 @@ const PlayerScreen = () => {
           <Text style={styles.title}>{activeTrack.title}</Text>
           <Text style={styles.artist}>{activeTrack.artist}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => addToLiked(activeTrack)}>
           <AntDesign
             name={isLiked ? 'heart' : 'hearto'}
             size={iconSizes.md}

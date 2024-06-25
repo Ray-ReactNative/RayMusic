@@ -21,14 +21,14 @@ export default function CustomDrawerContainer(props) {
           <AntDesign
             name={'close'}
             color={colors.iconPrimary}
-            size={iconSizes.lg}
+            size={iconSizes.md}
           />
         </TouchableOpacity>
         <TouchableOpacity>
           <Octicons
             name={isDark ? 'sun' : 'moon'}
             color={colors.iconPrimary}
-            size={iconSizes.lg}
+            size={iconSizes.md}
           />
         </TouchableOpacity>
       </View>

@@ -6,3 +6,7 @@ export const formatSecondsToMinute = seconds => {
   const formatedSeconds = String(remainingSeconds).padStart(2, '0');
   return `${formatedMinutes}:${formatedSeconds}`;
 };
+
+export const isSongExist = (songs, track) => {
+  return songs.some(song => song.url === track.url);
+};
