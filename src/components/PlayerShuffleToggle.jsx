@@ -4,10 +4,18 @@ import {iconSizes} from '../constants/dimensions';
 import {colors} from '../constants/colors';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TrackPlayer from 'react-native-track-player';
 
 const PlayerShuffleToggle = () => {
+  const shuffleSongs = async songs => {
+    let queue = await TrackPlayer.getQueue();
+    await TrackPlayer.reset();
+    queue.sort(() => Math.random() - 0.5);
+    await TrackPlayer.add(queue);
+    await TrackPlayer.play();
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={shuffleSongs}>
       <MaterialCommunityIcons
         name={'shuffle'}
         size={iconSizes.md}

@@ -7,7 +7,7 @@ import {fontFamilies} from '../constants/fonts';
 
 import {
   GoNextButton,
-  GoPreviiousButton,
+  GoPreviousButton,
   PlayPauseButton,
 } from './PlayerControls';
 import {Slider} from 'react-native-awesome-slider';
@@ -57,7 +57,7 @@ const FloatingPlayer = () => {
           <Text style={styles.artist}> Johnning, Janji</Text>
         </View>
         <View style={styles.playerControlContainer}>
-          <GoPreviiousButton />
+          <GoPreviousButton />
           <PlayPauseButton />
           <GoNextButton />
         </View>

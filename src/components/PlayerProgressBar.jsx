@@ -5,16 +5,29 @@ import {fontFamilies} from '../constants/fonts';
 import {fontSize, spacing} from '../constants/dimensions';
 import {useSharedValue} from 'react-native-reanimated';
 import {Slider} from 'react-native-awesome-slider';
+import TrackPlayer, {useProgress} from 'react-native-track-player';
+import {formatSecondsToMinute} from '../utils';
 
 const PlayerProgressBar = () => {
-  const progress = useSharedValue(0.25);
+  const {duration, position} = useProgress();
+  const progress = useSharedValue(0);
   const min = useSharedValue(0);
   const max = useSharedValue(1);
+  const isSliding = useSharedValue(false);
+
+  if (!isSliding.value) {
+    progress.value = duration > 0 ? position / duration : 0;
+  }
+  const trackElapsedTime = formatSecondsToMinute(position);
+  const trackRemainingTime = formatSecondsToMinute(duration - position);
   return (
     <View style={{paddingHorizontal: spacing.md}}>
       <View style={styles.timeRow}>
-        <Text style={styles.timeText}>00:50</Text>
-        <Text style={styles.timeText}>{'-'}04:50</Text>
+        <Text style={styles.timeText}>{trackElapsedTime}</Text>
+        <Text style={styles.timeText}>
+          {'-'}
+          {trackRemainingTime}
+        </Text>
       </View>
       <Slider
         style={styles.sliderContainer}
@@ -27,6 +40,19 @@ const PlayerProgressBar = () => {
         theme={{
           maximumTrackTintColor: colors.maximumTintColor,
           minimumTrackTintColor: colors.minimumTintColor,
+        }}
+        onSlidingStart={() => {
+          isSliding.value = true;
+        }}
+        onValueChange={async value => {
+          await TrackPlayer.seekTo(value * duration);
+        }}
+        onSlidingComplete={async value => {
+          if (!isSliding) {
+            return;
+          }
+          isSliding.value = false;
+          await TrackPlayer.seekTo(value * duration);
         }}
       />
     </View>

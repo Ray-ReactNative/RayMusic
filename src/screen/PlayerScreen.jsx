@@ -5,8 +5,9 @@ import {
   Text,
   Image,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {colors} from '../constants/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,20 +18,46 @@ import PlayerShuffleToggle from '../components/PlayerShuffleToggle';
 import PlayerProgressBar from '../components/PlayerProgressBar';
 import {
   GoNextButton,
-  GoPreviiousButton,
+  GoPreviousButton,
   PlayPauseButton,
 } from '../components/PlayerControls';
+import TrackPlayer, {useActiveTrack} from 'react-native-track-player';
+import {useNavigation} from '@react-navigation/native';
 
-const imgUrl =
-  'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/701/325x325/nostalgia-1718323267-zWVQ91T49m.jpg';
 const PlayerScreen = () => {
+  const activeTrack = useActiveTrack();
+  console.log('activeTrack:', activeTrack);
   const isLiked = false;
-  const isMute = false;
+  const [isMute, setIsMute] = useState(false);
+
+  useEffect(() => {
+    setVolume();
+  }, []);
+  const setVolume = async () => {
+    const volume = await TrackPlayer.getVolume();
+    setIsMute(volume === 0 ? true : false);
+  };
+
+  const navigation = useNavigation();
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+  if (!activeTrack) {
+    return (
+      <View style={styles.activityIndicator}>
+        <ActivityIndicator size={'small'} color={colors.iconPrimary} />
+      </View>
+    );
+  }
+  const haandleToggleVolume = () => {
+    TrackPlayer.setVolume(isMute ? 1 : 0);
+    setIsMute(!isMute);
+  };
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* header */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={handleGoBack}>
           <AntDesign
             name={'arrowleft'}
             size={iconSizes.md}
@@ -42,7 +69,7 @@ const PlayerScreen = () => {
       {/* image */}
       <View style={styles.coverImageContainer}>
         <Image
-          source={{uri: imgUrl}}
+          source={{uri: activeTrack.artwork}}
           resizeMode="contain"
           style={styles.coverImage}
         />
@@ -50,8 +77,8 @@ const PlayerScreen = () => {
       {/* render the title and artist */}
       <View style={styles.titleRowHeartContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Believer</Text>
-          <Text style={styles.artist}>IMAGINE DRAGON</Text>
+          <Text style={styles.title}>{activeTrack.title}</Text>
+          <Text style={styles.artist}>{activeTrack.artist}</Text>
         </View>
         <TouchableOpacity>
           <AntDesign
@@ -63,7 +90,9 @@ const PlayerScreen = () => {
       </View>
       {/* player control */}
       <View style={styles.playerControlContainer}>
-        <TouchableOpacity style={styles.volumeWrapper}>
+        <TouchableOpacity
+          style={styles.volumeWrapper}
+          onPress={haandleToggleVolume}>
           <MaterialCommunityIcons
             name={isMute ? 'volume-mute' : 'volume-medium'}
             size={iconSizes.lg}
@@ -78,11 +107,11 @@ const PlayerScreen = () => {
       {/* Player progress bar */}
       <PlayerProgressBar />
       <View style={styles.PlayPauseContainer}>
-        <GoPreviiousButton iconSizes={iconSizes.xl} />
+        <GoPreviousButton iconSizes={iconSizes.xl} />
         <PlayPauseButton iconSizes={iconSizes.xl} />
         <GoNextButton iconSizes={iconSizes.xl} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -107,7 +136,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   coverImageContainer: {
-    paddingVertical: spacing.xl,
+    flex: 2,
+    paddingVertical: spacing.lg,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -139,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: spacing.lg,
+    // paddingVertical: spacing.lg,
     paddingHorizontal: spacing.md,
   },
   volumeWrapper: {},
@@ -148,10 +178,17 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   PlayPauseContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: spacing.xl,
     marginTop: spacing.lg,
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.background,
   },
 });
