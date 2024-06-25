@@ -5,12 +5,12 @@ import {fontSize, spacing} from '../constants/dimensions';
 import {colors} from '../constants/colors';
 import {fontFamilies} from '../constants/fonts';
 
-const SongCardWithCategory = () => {
+const SongCardWithCategory = ({item}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headingText}> Recommended for you</Text>
+      <Text style={styles.headingText}> {item.title} </Text>
       <FlatList
-        data={[1, 2, 3, 4]}
+        data={item.song}
         renderItem={SongCard}
         horizontal
         ItemSeparatorComponent={<View style={{marginHorizontal: spacing.sm}} />} //the space between cards

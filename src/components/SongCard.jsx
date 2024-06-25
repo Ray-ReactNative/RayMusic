@@ -6,14 +6,17 @@ import {fontSize, spacing} from '../constants/dimensions';
 
 const imgUrl =
   'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/688/850x850/1717149481_ZQIuzR0KYO_PUSHING-ON---Final.jpg';
-const SongCard = ({containerStyle, imageStyle}) => {
+const SongCard = ({item, containerStyle, imageStyle}) => {
   return (
     <TouchableOpacity style={[styles.container, containerStyle]}>
-      <Image source={{uri: imgUrl}} style={[styles.coverImage, imageStyle]} />
+      <Image
+        source={{uri: item.artwork}}
+        style={[styles.coverImage, imageStyle]}
+      />
       <Text style={styles.title} numberOfLines={1}>
-        Pushing On
+        {item.title}
       </Text>
-      <Text style={styles.artist}>RIOT</Text>
+      <Text style={styles.artist}>{item.artist}</Text>
     </TouchableOpacity>
   );
 };

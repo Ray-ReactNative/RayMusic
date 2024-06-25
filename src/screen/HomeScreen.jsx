@@ -4,6 +4,7 @@ import {colors} from '../constants/colors';
 import Header from '../components/Header';
 import SongCardWithCategory from '../components/SongCardWithCategory';
 import FloatingPlayer from '../components/FloatingPlayer';
+import {songWithCategory} from '../data/songWithCategory';
 
 const HomeScreen = () => {
   return (
@@ -13,7 +14,7 @@ const HomeScreen = () => {
       {/* <SongCardWithCategory /> */}
 
       <FlatList
-        data={[1, 2, 3, 4, 5]}
+        data={songWithCategory}
         renderItem={SongCardWithCategory}
         contentContainerStyle={{
           paddingBottom: 400, //下方空間
