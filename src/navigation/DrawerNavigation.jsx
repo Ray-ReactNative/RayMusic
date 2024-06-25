@@ -11,6 +11,7 @@ const DrawerNavigation = () => {
       screenOptions={{
         headerShown: false,
         drawerType: 'back',
+        swipeEdgeWidth: 0, //stop drawer gesture
       }}
       drawerContent={props => <CustomDrawerContainer {...props} />}>
       <Drawer.Screen name="DRAWER_HOME" component={StackNavigation} />
