@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/colors';
 import Header from '../components/Header';
@@ -10,8 +10,6 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
-      {/* <SongCard /> */}
-      {/* <SongCardWithCategory /> */}
 
       <FlatList
         data={songWithCategory}

@@ -1,4 +1,4 @@
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -31,7 +31,7 @@ const LikeScreen = () => {
         <TouchableOpacity>
           <Fontisto
             name={'equalizer'}
-            size={iconSizes.md}
+            size={iconSizes.sm}
             color={colors.iconPrimary}
           />
         </TouchableOpacity>
