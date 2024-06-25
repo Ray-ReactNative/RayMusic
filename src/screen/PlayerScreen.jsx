@@ -14,6 +14,12 @@ import {fontSize, iconSizes, spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
 import PlayerRepeatToggle from '../components/PlayerRepeatToggle';
 import PlayerShuffleToggle from '../components/PlayerShuffleToggle';
+import PlayerProgressBar from '../components/PlayerProgressBar';
+import {
+  GoNextButton,
+  GoPreviiousButton,
+  PlayPauseButton,
+} from '../components/PlayerControls';
 
 const imgUrl =
   'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/701/325x325/nostalgia-1718323267-zWVQ91T49m.jpg';
@@ -69,6 +75,13 @@ const PlayerScreen = () => {
           <PlayerShuffleToggle />
         </View>
       </View>
+      {/* Player progress bar */}
+      <PlayerProgressBar />
+      <View style={styles.PlayPauseContainer}>
+        <GoPreviiousButton iconSizes={iconSizes.xl} />
+        <PlayPauseButton iconSizes={iconSizes.xl} />
+        <GoNextButton iconSizes={iconSizes.xl} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -79,11 +92,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    padding: spacing.md,
+    // padding: spacing.lg,  //not work when it's safeareaview
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    padding: spacing.lg,
   },
   headingText: {
     color: colors.textPrimary,
@@ -105,10 +119,12 @@ const styles = StyleSheet.create({
   titleRowHeartContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: spacing.md,
   },
   titleContainer: {
     alignItems: 'center',
     flex: 1,
+    padding: spacing.md,
   },
   title: {
     fontSize: fontSize.xl,
@@ -124,10 +140,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.md,
   },
   volumeWrapper: {},
   repeatShuffleWrapper: {
     flexDirection: 'row',
     gap: spacing.sm,
+  },
+  PlayPauseContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: spacing.xl,
+    marginTop: spacing.lg,
   },
 });

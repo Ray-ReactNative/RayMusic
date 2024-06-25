@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
