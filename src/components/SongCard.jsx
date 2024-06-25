@@ -3,12 +3,15 @@ import React from 'react';
 import {colors} from '../constants/colors';
 import {fontFamilies} from '../constants/fonts';
 import {fontSize, spacing} from '../constants/dimensions';
+import TrackPlayer from 'react-native-track-player';
 
 const imgUrl =
   'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/688/850x850/1717149481_ZQIuzR0KYO_PUSHING-ON---Final.jpg';
-const SongCard = ({item, containerStyle, imageStyle}) => {
+const SongCard = ({item, containerStyle, imageStyle, handlePlay}) => {
   return (
-    <TouchableOpacity style={[styles.container, containerStyle]}>
+    <TouchableOpacity
+      style={[styles.container, containerStyle]}
+      onPress={() => handlePlay(item)}>
       <Image
         source={{uri: item.artwork}}
         style={[styles.coverImage, imageStyle]}
