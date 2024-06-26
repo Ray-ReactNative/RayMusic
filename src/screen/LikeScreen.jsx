@@ -10,12 +10,32 @@ import SongCard from '../components/SongCard';
 import FloatingPlayer from '../components/FloatingPlayer';
 import useLikeSongs from '../store/likeStore';
 import {useNavigation} from '@react-navigation/native';
+import TrackPlayer from 'react-native-track-player';
 
 const LikeScreen = () => {
   const navigation = useNavigation();
   const {likedSongs, addToLiked} = useLikeSongs();
   const handleGoBack = () => {
     navigation.goBack();
+  };
+  const handlePlayTrack = async selectedTrack => {
+    const songs = likedSongs;
+    //make a queue amd play the songs
+    const trackIndex = songs.findIndex(
+      track => track.url === selectedTrack.url,
+    );
+    if (trackIndex === -1) {
+      return;
+    }
+    const beforeTracks = songs.slice(0, trackIndex);
+    const afterTracks = songs.slice(trackIndex + 1);
+
+    await TrackPlayer.reset();
+    await TrackPlayer.add(selectedTrack);
+    await TrackPlayer.add(afterTracks);
+    await TrackPlayer.add(beforeTracks);
+
+    await TrackPlayer.play();
   };
   return (
     <View style={styles.container}>
@@ -46,6 +66,7 @@ const LikeScreen = () => {
             containerStyle={{width: '47%'}}
             imageStyle={{height: 160, width: 160}}
             item={item}
+            handlePlay={selectedTrack => handlePlayTrack(selectedTrack)}
           />
         )}
         numColumns={2}

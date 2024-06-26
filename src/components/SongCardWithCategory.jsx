@@ -19,7 +19,7 @@ const SongCardWithCategory = ({item}) => {
       return;
     }
     const beforeTracks = songs.slice(0, trackIndex);
-    const afterTracks = songs.slice(trackIndex, 1);
+    const afterTracks = songs.slice(trackIndex + 1);
 
     await TrackPlayer.reset();
     await TrackPlayer.add(selectedTrack);
