@@ -1,6 +1,8 @@
 # RayMusic
 
-the course from (youtube)['https://www.youtube.com/watch?v=WiLs1LmWQPE]
+The course from youtube https://www.youtube.com/watch?v=WiLs1LmWQPE
+
+-
 
 Font Family Download Link:
 https://www.fontshmonts.com/text-fonts/gilroy/
