@@ -2,11 +2,12 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React from 'react';
 import SongCard from './SongCard';
 import {fontSize, spacing} from '../constants/dimensions';
-import {colors} from '../constants/colors';
 import {fontFamilies} from '../constants/fonts';
 import TrackPlayer from 'react-native-track-player';
+import {useTheme} from '@react-navigation/native';
 
 const SongCardWithCategory = ({item}) => {
+  const {colors} = useTheme();
   // create a function that will play a song in queue
   const handlePlayTrack = async selectedTrack => {
     const songs = item.songs;
@@ -31,7 +32,10 @@ const SongCardWithCategory = ({item}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headingText}> {item.title} </Text>
+      <Text style={[styles.headingText, {color: colors.textPrimary}]}>
+        {' '}
+        {item.title}{' '}
+      </Text>
       <FlatList
         data={item.songs}
         renderItem={({item}) => (
@@ -45,6 +49,7 @@ const SongCardWithCategory = ({item}) => {
         horizontal
         ItemSeparatorComponent={<View style={{marginHorizontal: spacing.sm}} />} //the space between cards
         contentContainerStyle={{paddingHorizontal: spacing.lg}} // the space before first card
+        showsHorizontalScrollIndicator={false} //don't show a horizontal scroll indicator
       />
     </View>
   );
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headingText: {
-    color: colors.textPrimary,
+    // color: colors.textPrimary,
     fontSize: fontSize.xl,
     fontFamily: fontFamilies.bold,
     padding: spacing.lg,

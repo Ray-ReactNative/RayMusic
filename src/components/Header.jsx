@@ -1,15 +1,15 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {colors} from '../constants/colors';
 
 // icons
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {iconSizes, spacing} from '../constants/dimensions';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 
 const Header = () => {
   const navigation = useNavigation();
+  const {colors} = useTheme();
   const toggleDrawer = () => {
     navigation.toggleDrawer();
   };

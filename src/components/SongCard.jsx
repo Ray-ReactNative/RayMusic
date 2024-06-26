@@ -1,13 +1,11 @@
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {colors} from '../constants/colors';
 import {fontFamilies} from '../constants/fonts';
 import {fontSize, spacing} from '../constants/dimensions';
-import TrackPlayer from 'react-native-track-player';
+import {useTheme} from '@react-navigation/native';
 
-const imgUrl =
-  'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/688/850x850/1717149481_ZQIuzR0KYO_PUSHING-ON---Final.jpg';
 const SongCard = ({item, containerStyle, imageStyle, handlePlay}) => {
+  const {colors} = useTheme();
   return (
     <TouchableOpacity
       style={[styles.container, containerStyle]}
@@ -16,10 +14,14 @@ const SongCard = ({item, containerStyle, imageStyle, handlePlay}) => {
         source={{uri: item.artwork}}
         style={[styles.coverImage, imageStyle]}
       />
-      <Text style={styles.title} numberOfLines={1}>
+      <Text
+        style={[styles.title, {color: colors.textPrimary}]}
+        numberOfLines={1}>
         {item.title}
       </Text>
-      <Text style={styles.artist}>{item.artist}</Text>
+      <Text style={[styles.artist, {color: colors.textSecondary}]}>
+        {item.artist}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -37,7 +39,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    color: colors.textPrimary,
     fontFamily: fontFamilies.medium,
     fontSize: fontSize.lg,
     textAlign: 'center',
@@ -46,7 +47,6 @@ const styles = StyleSheet.create({
   artist: {
     fontFamily: fontFamilies.regular,
     fontSize: fontSize.md,
-    color: colors.textSecondary,
     textAlign: 'center',
   },
 });

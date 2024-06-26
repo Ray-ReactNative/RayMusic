@@ -4,11 +4,9 @@ import {
   View,
   Text,
   Image,
-  SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {colors} from '../constants/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {fontSize, iconSizes, spacing} from '../constants/dimensions';
@@ -22,7 +20,7 @@ import {
   PlayPauseButton,
 } from '../components/PlayerControls';
 import TrackPlayer, {useActiveTrack} from 'react-native-track-player';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import useLikeSongs from '../store/likeStore';
 import {isSongExist} from '../utils';
 
@@ -31,6 +29,7 @@ const PlayerScreen = () => {
   const {likedSongs, addToLiked} = useLikeSongs();
   const activeTrack = useActiveTrack();
   const [isMute, setIsMute] = useState(false);
+  const {colors} = useTheme();
 
   useEffect(() => {
     setVolume();
@@ -45,7 +44,11 @@ const PlayerScreen = () => {
   };
   if (!activeTrack) {
     return (
-      <View style={styles.activityIndicator}>
+      <View
+        style={[
+          styles.activityIndicator,
+          {backgroundColor: colors.background},
+        ]}>
         <ActivityIndicator size={'small'} color={colors.iconPrimary} />
       </View>
     );
@@ -55,7 +58,7 @@ const PlayerScreen = () => {
     setIsMute(!isMute);
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       {/* header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleGoBack}>
@@ -65,7 +68,10 @@ const PlayerScreen = () => {
             color={colors.iconPrimary}
           />
         </TouchableOpacity>
-        <Text style={styles.headingText}> Playing Now</Text>
+        <Text style={[styles.headingText, {color: colors.textPrimary}]}>
+          {' '}
+          Playing Now
+        </Text>
       </View>
       {/* image */}
       <View style={styles.coverImageContainer}>
@@ -78,8 +84,18 @@ const PlayerScreen = () => {
       {/* render the title and artist */}
       <View style={styles.titleRowHeartContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{activeTrack.title}</Text>
-          <Text style={styles.artist}>{activeTrack.artist}</Text>
+          <Text style={[styles.title, {color: colors.textPrimary}]}>
+            {activeTrack.title}
+          </Text>
+          <Text
+            style={[
+              styles.artist,
+              {
+                color: colors.textSecondary,
+              },
+            ]}>
+            {activeTrack.artist}
+          </Text>
         </View>
         <TouchableOpacity onPress={() => addToLiked(activeTrack)}>
           <AntDesign
@@ -121,7 +137,6 @@ export default PlayerScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
     // padding: spacing.lg,  //not work when it's safeareaview
   },
   headerContainer: {
@@ -130,7 +145,6 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
   },
   headingText: {
-    color: colors.textPrimary,
     fontFamily: fontFamilies.medium,
     fontSize: fontSize.lg,
     textAlign: 'center',
@@ -159,12 +173,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: fontSize.xl,
-    color: colors.textPrimary,
     fontFamily: fontFamilies.medium,
   },
   artist: {
     fontSize: fontSize.md,
-    color: colors.textSecondary,
   },
   playerControlContainer: {
     flexDirection: 'row',
@@ -190,6 +202,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
   },
 });

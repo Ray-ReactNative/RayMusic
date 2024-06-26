@@ -1,7 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {useSharedValue} from 'react-native-reanimated';
-import {colors} from '../constants/colors';
 import {fontSize, iconSizes, spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
 
@@ -12,11 +11,13 @@ import {
 } from './PlayerControls';
 import {Slider} from 'react-native-awesome-slider';
 import MovingText from './MovingText';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 const imgUrl =
   'https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/701/325x325/nostalgia-1718323267-zWVQ91T49m.jpg';
 const FloatingPlayer = () => {
   const navigation = useNavigation();
+  const {colors} = useTheme();
+
   const progress = useSharedValue(30);
   const min = useSharedValue(0);
   const max = useSharedValue(100);
@@ -50,11 +51,14 @@ const FloatingPlayer = () => {
         <View style={styles.titleContainer}>
           <MovingText
             text={'Nostalgia'}
-            style={styles.title}
+            style={[styles.title, {color: colors.textPrimary}]}
             animationThreshold={15}
           />
           {/* <Text style={styles.title}> Nostalgia </Text> */}
-          <Text style={styles.artist}> Johnning, Janji</Text>
+          <Text style={[styles.artist, {color: colors.textSecondary}]}>
+            {' '}
+            Johnning, Janji
+          </Text>
         </View>
         <View style={styles.playerControlContainer}>
           <GoPreviousButton />
@@ -77,14 +81,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   title: {
-    color: colors.textPrimary,
     fontSize: fontSize.lg,
     fontFamily: fontFamilies.medium,
     marginLeft: spacing.sm,
     marginRight: spacing.lg,
   },
   artist: {
-    color: colors.textSecondary,
     fontSize: fontSize.md,
     fontFamilies: fontFamilies.regular,
   },

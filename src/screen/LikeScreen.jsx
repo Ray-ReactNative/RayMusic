@@ -1,6 +1,5 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {colors} from '../constants/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -9,11 +8,12 @@ import {fontFamilies} from '../constants/fonts';
 import SongCard from '../components/SongCard';
 import FloatingPlayer from '../components/FloatingPlayer';
 import useLikeSongs from '../store/likeStore';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import TrackPlayer from 'react-native-track-player';
 
 const LikeScreen = () => {
   const navigation = useNavigation();
+  const {colors} = useTheme();
   const {likedSongs, addToLiked} = useLikeSongs();
   const handleGoBack = () => {
     navigation.goBack();
@@ -38,7 +38,7 @@ const LikeScreen = () => {
     await TrackPlayer.play();
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       {/* header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleGoBack}>
@@ -57,7 +57,9 @@ const LikeScreen = () => {
         </TouchableOpacity>
       </View>
       {/* render the list */}
-      <Text style={styles.headingText}>Liked Songs</Text>
+      <Text style={[styles.headingText, {color: colors.textPrimary}]}>
+        Liked Songs
+      </Text>
       <FlatList
         // ListHeaderComponent={}   //title
         data={likedSongs}
@@ -89,7 +91,6 @@ export default LikeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   },
   headingText: {
     fontSize: fontSize.xl,
-    color: colors.textPrimary,
+
     fontFamily: fontFamilies.bold,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,

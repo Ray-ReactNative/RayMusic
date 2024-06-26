@@ -1,10 +1,11 @@
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {iconSizes} from '../constants/dimensions';
-import {colors} from '../constants/colors';
 import TrackPlayer, {useIsPlaying} from 'react-native-track-player';
+import {useTheme} from '@react-navigation/native';
 
 export const GoPreviousButton = ({size = iconSizes.xl}) => {
+  const {colors} = useTheme();
   const handleGoPrevious = () => {
     TrackPlayer.skipToPrevious();
   };
@@ -19,7 +20,7 @@ export const GoPreviousButton = ({size = iconSizes.xl}) => {
   );
 };
 export const PlayPauseButton = ({size = iconSizes.lg}) => {
-  // const isPlaying = true;
+  const {colors} = useTheme();
   const {playing} = useIsPlaying();
 
   const handleTogglePlay = () => {
@@ -40,6 +41,7 @@ export const PlayPauseButton = ({size = iconSizes.lg}) => {
   );
 };
 export const GoNextButton = ({size = iconSizes.xl}) => {
+  const {colors} = useTheme();
   const handleGoNext = () => {
     TrackPlayer.skipToNext();
   };

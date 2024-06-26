@@ -1,14 +1,15 @@
 import {TouchableOpacity} from 'react-native';
 import React from 'react';
-import {colors} from '../constants/colors';
 import {iconSizes} from '../constants/dimensions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTrackPlayerRepeatMode} from '../hooks/useTrackPlayerRepeatMode';
 import {RepeatMode} from 'react-native-track-player';
+import {useTheme} from '@react-navigation/native';
 
 const repeatOrder = [RepeatMode.Off, RepeatMode.Track, RepeatMode.Queue]; //repeatOrder.indexOf : [0, 1, 2]
 
 const PlayerRepeatToggle = () => {
+  const {colors} = useTheme();
   const {repeatMode, changeRepeatMode} = useTrackPlayerRepeatMode();
   const toggleRepeatMode = () => {
     if (repeatMode == null) {

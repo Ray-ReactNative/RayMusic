@@ -10,7 +10,7 @@ const DrawerNavigation = () => {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-        drawerType: 'back',
+        drawerType: 'slide',
         swipeEdgeWidth: 0, //stop drawer gesture
       }}
       drawerContent={props => <CustomDrawerContainer {...props} />}>

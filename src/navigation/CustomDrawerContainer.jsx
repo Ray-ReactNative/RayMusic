@@ -1,21 +1,25 @@
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {colors} from '../constants/colors';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {fontSize, iconSizes, spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
+import {useTheme} from '@react-navigation/native';
+import {useThemeStore} from '../store/themeStore';
 
 export default function CustomDrawerContainer(props) {
-  const isDark = true;
+  const {isDarkMode, toggleTheme} = useThemeStore();
+
+  const {colors} = useTheme();
   const toggleDrawer = () => {
     props.navigation.toggleDrawer();
   };
   return (
-    <DrawerContentScrollView style={styles.container}>
+    <DrawerContentScrollView
+      style={[styles.container, {backgroundColor: colors.background}]}>
       <View style={styles.headerIconContainer}>
         <TouchableOpacity onPress={toggleDrawer}>
           <AntDesign
@@ -24,9 +28,9 @@ export default function CustomDrawerContainer(props) {
             size={iconSizes.md}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => toggleTheme()}>
           <Octicons
-            name={isDark ? 'sun' : 'moon'}
+            name={isDarkMode ? 'sun' : 'moon'}
             color={colors.iconPrimary}
             size={iconSizes.md}
           />
@@ -43,7 +47,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
         />
         <DrawerItem
@@ -55,7 +59,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
           onPress={() => {
             props.navigation.navigate('LIKE_SCREEN');
@@ -70,7 +74,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
         />
         <DrawerItem
@@ -82,7 +86,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
         />
         <DrawerItem
@@ -94,7 +98,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
         />
         <DrawerItem
@@ -106,7 +110,7 @@ export default function CustomDrawerContainer(props) {
               color={colors.iconSecondary}
             />
           )}
-          labelStyle={styles.lableStyle}
+          labelStyle={[styles.lableStyle, {color: colors.textSecondary}]}
           style={styles.drawerItem}
         />
       </View>
@@ -115,7 +119,6 @@ export default function CustomDrawerContainer(props) {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
     padding: spacing.md,
   },
   headerIconContainer: {
@@ -128,7 +131,6 @@ const styles = StyleSheet.create({
   },
   lableStyle: {
     fontSize: fontSize.md,
-    color: colors.textSecondary,
     fontFamily: fontFamilies.medium,
   },
   drawerItem: {
