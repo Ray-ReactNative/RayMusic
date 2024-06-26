@@ -6,10 +6,6 @@ export const songWithCategory = [
     songs: recommendedSongs,
   },
   {
-    title: 'Liked Songs',
-    songs: recommendedSongs,
-  },
-  {
     title: 'New Release',
     songs: recommendedSongs,
   },
